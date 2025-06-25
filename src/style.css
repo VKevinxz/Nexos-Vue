@@ -1,0 +1,650 @@
+@import "tailwindcss";
+
+/* Colores personalizados de la marca */
+:root {
+  /* Colores base de marca */
+  --nexos-orange: #E59222;
+  --nexos-blue: #74AEE1;
+  --nexos-orange-light: #F5A85A;
+  --nexos-blue-light: #8FC1E8;
+  --nexos-orange-dark: #C7761A;
+  --nexos-blue-dark: #5A9BD6;
+  
+  /* Variables para modo DARK (actual) */
+  --bg-primary: #0f0f23;
+  --bg-secondary: #1a1a2e;
+  --bg-tertiary: #16213e;
+  --text-primary: #ffffff;
+  --text-secondary: #d1d5db;
+  --text-muted: #9ca3af;
+  --overlay-light: rgba(255, 255, 255, 0.05);
+  --overlay-medium: rgba(255, 255, 255, 0.10);
+  --overlay-heavy: rgba(0, 0, 0, 0.20);
+  --border-light: rgba(255, 255, 255, 0.10);
+  --border-medium: rgba(255, 255, 255, 0.20);
+  --shadow-color: rgba(0, 0, 0, 0.3);
+}
+
+/* Variables para modo LIGHT */
+[data-theme="light"] {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8fafc;
+  --bg-tertiary: #f1f5f9;
+  --text-primary: #1e293b;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  --overlay-light: rgba(255, 255, 255, 0.15);
+  --overlay-medium: rgba(255, 255, 255, 0.25);
+  --overlay-heavy: rgba(255, 255, 255, 0.35);
+  --border-light: rgba(15, 15, 35, 0.08);
+  --border-medium: rgba(15, 15, 35, 0.15);
+  --shadow-color: rgba(15, 15, 35, 0.15);
+
+  /* Fondos más contrastados para elementos importantes */
+  --overlay-card: rgba(255, 255, 255, 0.40);
+  --overlay-card-hover: rgba(255, 255, 255, 0.55);
+  --border-strong: rgba(15, 15, 35, 0.20);
+  --text-contrast: #0f172a;
+  --text-muted-contrast: #334155;
+}
+
+@keyframes scrollInfinite {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scroll-infinite {
+  animation: scrollInfinite 30s linear infinite;
+}
+
+.animate-scroll-infinite:hover {
+  animation-play-state: paused;
+}
+
+/* Gradiente animado para el fondo principal */
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes gradientPulse {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+@keyframes floatUp {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(180deg);
+  }
+}
+
+@keyframes floatDown {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(20px) rotate(-180deg);
+  }
+}
+
+@keyframes sparkle {
+  0%, 100% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animated-gradient-bg {
+  background: linear-gradient(-45deg, 
+    var(--bg-primary), 
+    var(--bg-secondary), 
+    var(--bg-tertiary), 
+    var(--bg-primary), 
+    var(--bg-secondary)
+  );
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+}
+
+.gradient-overlay {
+  background: linear-gradient(45deg, 
+    rgba(229, 146, 34, 0.1), 
+    rgba(116, 174, 225, 0.1), 
+    rgba(229, 146, 34, 0.05), 
+    rgba(116, 174, 225, 0.15)
+  );
+  background-size: 300% 300%;
+  animation: gradientShift 20s ease infinite;
+}
+
+/* Modo LIGHT - Gradiente más sutil y luminoso */
+[data-theme="light"] .animated-gradient-bg {
+  background: linear-gradient(-45deg, 
+    #ffffff, 
+    #f8fafc, 
+    #f1f5f9, 
+    #ffffff, 
+    #f8fafc
+  );
+}
+
+[data-theme="light"] .gradient-overlay {
+  background: linear-gradient(45deg, 
+    rgba(229, 146, 34, 0.08), 
+    rgba(116, 174, 225, 0.08), 
+    rgba(229, 146, 34, 0.04), 
+    rgba(116, 174, 225, 0.12)
+  );
+}
+
+.floating-orb {
+  border-radius: 50%;
+  filter: blur(40px);
+  animation: gradientPulse 4s ease-in-out infinite;
+}
+
+.floating-orb-1 {
+  animation: floatUp 8s ease-in-out infinite, gradientPulse 4s ease-in-out infinite;
+}
+
+.floating-orb-2 {
+  animation: floatDown 10s ease-in-out infinite, gradientPulse 6s ease-in-out infinite;
+}
+
+.floating-orb-3 {
+  animation: floatUp 12s ease-in-out infinite, gradientPulse 5s ease-in-out infinite;
+}
+
+.sparkle {
+  animation: sparkle 3s ease-in-out infinite;
+}
+
+.sparkle:nth-child(2) { animation-delay: 0.5s; }
+.sparkle:nth-child(3) { animation-delay: 1s; }
+.sparkle:nth-child(4) { animation-delay: 1.5s; }
+.sparkle:nth-child(5) { animation-delay: 2s; }
+
+/* Utilidades personalizadas para los colores de marca */
+.bg-nexos-orange { background-color: var(--nexos-orange); }
+.bg-nexos-blue { background-color: var(--nexos-blue); }
+.text-nexos-orange { color: var(--nexos-orange); }
+.text-nexos-blue { color: var(--nexos-blue); }
+.border-nexos-orange { border-color: var(--nexos-orange); }
+.border-nexos-blue { border-color: var(--nexos-blue); }
+
+/* Gradientes personalizados de marca */
+.bg-gradient-nexos {
+  background: linear-gradient(135deg, var(--nexos-orange) 0%, var(--nexos-blue) 100%);
+}
+
+.bg-gradient-nexos-reverse {
+  background: linear-gradient(135deg, var(--nexos-blue) 0%, var(--nexos-orange) 100%);
+}
+
+/* Nuevas animaciones de scroll parallax */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideInRotate {
+  from {
+    opacity: 0;
+    transform: translateY(40px) rotate(-5deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+/* Clases de animación scroll */
+.scroll-animate {
+  opacity: 0;
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.animate-in {
+  opacity: 1;
+}
+
+.animate-out {
+  opacity: 0;
+}
+
+/* Animaciones específicas */
+.fade-up {
+  transform: translateY(60px);
+}
+
+.fade-up.animate-in {
+  transform: translateY(0);
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.fade-down {
+  transform: translateY(-60px);
+}
+
+.fade-down.animate-in {
+  transform: translateY(0);
+  animation: fadeInDown 0.8s ease-out forwards;
+}
+
+.fade-left {
+  transform: translateX(-60px);
+}
+
+.fade-left.animate-in {
+  transform: translateX(0);
+  animation: fadeInLeft 0.8s ease-out forwards;
+}
+
+.fade-right {
+  transform: translateX(60px);
+}
+
+.fade-right.animate-in {
+  transform: translateX(0);
+  animation: fadeInRight 0.8s ease-out forwards;
+}
+
+.scale-in {
+  transform: scale(0.8);
+}
+
+.scale-in.animate-in {
+  transform: scale(1);
+  animation: scaleIn 0.8s ease-out forwards;
+}
+
+.slide-rotate {
+  transform: translateY(40px) rotate(-5deg);
+}
+
+.slide-rotate.animate-in {
+  transform: translateY(0) rotate(0deg);
+  animation: slideInRotate 0.8s ease-out forwards;
+}
+
+/* Parallax backgrounds */
+.parallax-bg {
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+.parallax-slow {
+  transform: translateY(var(--parallax-slow, 0));
+}
+
+.parallax-medium {
+  transform: translateY(var(--parallax-medium, 0));
+}
+
+.parallax-fast {
+  transform: translateY(var(--parallax-fast, 0));
+}
+
+/* Stagger animations para secuencias */
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
+.stagger-5 { animation-delay: 0.5s; }
+.stagger-6 { animation-delay: 0.6s; }
+
+/* Utilidades de tema dinámico */
+.bg-theme-overlay-light { background-color: var(--overlay-light); }
+.bg-theme-overlay-medium { background-color: var(--overlay-medium); }
+.bg-theme-overlay-heavy { background-color: var(--overlay-heavy); }
+.text-theme-primary { color: var(--text-primary); }
+.text-theme-secondary { color: var(--text-secondary); }
+.text-theme-muted { color: var(--text-muted); }
+.border-theme-light { border-color: var(--border-light); }
+.border-theme-medium { border-color: var(--border-medium); }
+
+/* Ajustes específicos para orbes en modo LIGHT */
+[data-theme="light"] .floating-orb {
+  filter: blur(60px);
+  opacity: 0.4;
+}
+
+[data-theme="light"] .floating-orb-1 .bg-nexos-orange,
+[data-theme="light"] .floating-orb-2 .bg-nexos-blue,
+[data-theme="light"] .floating-orb-3 .bg-nexos-orange {
+  opacity: 0.3;
+}
+
+/* Sparkles más sutiles en modo LIGHT */
+[data-theme="light"] .sparkle {
+  opacity: 0.6;
+}
+
+/* Backdrop blur adaptativo */
+.backdrop-blur-adaptive {
+  backdrop-filter: blur(12px);
+}
+
+[data-theme="light"] .backdrop-blur-adaptive {
+  backdrop-filter: blur(20px);
+}
+
+/* Sombras adaptativas */
+.shadow-adaptive {
+  box-shadow: 0 10px 30px var(--shadow-color);
+}
+
+.shadow-adaptive-lg {
+  box-shadow: 0 20px 50px var(--shadow-color);
+}
+
+/* Cards más visibles en modo LIGHT */
+[data-theme="light"] .bg-theme-overlay-medium {
+  background-color: rgba(248, 250, 252, 0.8);
+  border: 1px solid rgba(15, 15, 35, 0.1);
+}
+
+[data-theme="light"] .bg-theme-overlay-medium:hover {
+  background-color: rgba(241, 245, 249, 0.9);
+  border-color: rgba(15, 15, 35, 0.15);
+}
+
+/* Texto más contrastado en cards del modo LIGHT */
+[data-theme="light"] .bg-theme-overlay-medium h3,
+[data-theme="light"] .bg-theme-overlay-medium h4,
+[data-theme="light"] .bg-theme-overlay-medium h5 {
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .bg-theme-overlay-medium p {
+  color: #334155 !important;
+}
+
+/* Mejoras específicas para botones en modo LIGHT */
+[data-theme="light"] .border-theme-medium {
+  border-color: rgba(15, 15, 35, 0.25);
+}
+
+[data-theme="light"] .border-theme-medium:hover {
+  border-color: var(--nexos-orange);
+  background-color: rgba(229, 146, 34, 0.1);
+}
+
+/* Logo más visible en modo LIGHT */
+[data-theme="light"] img[alt="NEXOS"] {
+  filter: invert(1) brightness(0) saturate(100%) contrast(200%) !important;
+}
+
+/* Orbes menos intrusivos en modo LIGHT */
+[data-theme="light"] .floating-orb {
+  opacity: 0.6;
+  filter: blur(80px);
+}
+
+/* Mejoras específicas para la navegación en modo LIGHT */
+[data-theme="light"] nav {
+  background-color: rgba(255, 255, 255, 0.95);
+  border-bottom: 1px solid rgba(15, 15, 35, 0.1);
+}
+
+[data-theme="light"] nav .text-theme-primary {
+  color: #0f172a;
+  font-weight: 500;
+}
+
+[data-theme="light"] nav .text-theme-primary:hover {
+  color: var(--nexos-orange);
+}
+
+/* Footer en modo LIGHT */
+[data-theme="light"] footer {
+  background-color: rgba(248, 250, 252, 0.95);
+  border-top: 1px solid rgba(15, 15, 35, 0.1);
+}
+
+[data-theme="light"] footer .text-theme-muted {
+  color: #64748b;
+}
+
+[data-theme="light"] footer .text-theme-muted:hover {
+  color: #0f172a;
+}
+
+/* Mejoras para formularios en modo LIGHT */
+[data-theme="light"] .bg-theme-overlay-light {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(15, 15, 35, 0.1);
+}
+
+[data-theme="light"] input,
+[data-theme="light"] textarea,
+[data-theme="light"] select {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  border: 1px solid rgba(15, 15, 35, 0.15) !important;
+  color: #0f172a !important;
+}
+
+[data-theme="light"] input::placeholder,
+[data-theme="light"] textarea::placeholder {
+  color: #64748b !important;
+}
+
+[data-theme="light"] input:focus,
+[data-theme="light"] textarea:focus,
+[data-theme="light"] select:focus {
+  border-color: var(--nexos-orange) !important;
+  box-shadow: 0 0 0 2px rgba(229, 146, 34, 0.2) !important;
+}
+
+/* Mejoras adicionales de contraste y legibilidad */
+
+/* Gradientes de fondo más sutiles para modo LIGHT */
+[data-theme="light"] .bg-gradient-to-br {
+  background-image: linear-gradient(to bottom right, rgba(255,255,255,0.9), rgba(248,250,252,0.9));
+}
+
+/* Texto más visible en overlays del modo LIGHT */
+[data-theme="light"] .absolute.inset-0 {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Mejoras para elementos con gradientes de marca */
+[data-theme="light"] .from-nexos-orange {
+  background-image: linear-gradient(to right, var(--nexos-orange), var(--nexos-blue));
+}
+
+/* Sombras más suaves para modo LIGHT */
+[data-theme="light"] .shadow-adaptive {
+  box-shadow: 0 4px 20px rgba(15, 15, 35, 0.08);
+}
+
+[data-theme="light"] .shadow-adaptive-lg {
+  box-shadow: 0 10px 40px rgba(15, 15, 35, 0.12);
+}
+
+/* Hover states mejorados para modo LIGHT */
+[data-theme="light"] .hover\:scale-105:hover {
+  box-shadow: 0 8px 30px rgba(15, 15, 35, 0.15);
+}
+
+/* Mejoras para elementos de estadísticas */
+[data-theme="light"] .text-3xl.font-bold {
+  color: var(--nexos-orange) !important;
+}
+
+/* Mejoras para el scroll indicator */
+[data-theme="light"] .animate-bounce svg {
+  color: #64748b !important;
+}
+
+/* Mejoras para las líneas SVG animadas */
+[data-theme="light"] svg path {
+  opacity: 0.3 !important;
+}
+
+/* Mejora para el backdrop-blur en modo LIGHT */
+[data-theme="light"] .backdrop-blur-adaptive {
+  backdrop-filter: blur(20px);
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Mejoras para botones de acción */
+[data-theme="light"] .bg-gradient-to-r.from-nexos-orange {
+  box-shadow: 0 4px 15px rgba(229, 146, 34, 0.3);
+}
+
+[data-theme="light"] .bg-gradient-to-r.from-nexos-orange:hover {
+  box-shadow: 0 6px 20px rgba(229, 146, 34, 0.4);
+  transform: translateY(-1px) scale(1.05);
+}
+
+/* Actualización específica para las cards de reconocimientos en About.vue */
+.mx-4.bg-white\/5.backdrop-blur-md.rounded-xl {
+  background-color: var(--overlay-light) !important;
+  backdrop-filter: blur(20px) !important;
+  border: 1px solid var(--border-light) !important;
+  box-shadow: var(--shadow-adaptive) !important;
+}
+
+.mx-4.bg-white\/5.backdrop-blur-md.rounded-xl:hover {
+  border-color: var(--border-medium) !important;
+  background-color: var(--overlay-medium) !important;
+}
+
+/* Aplicar estilos dinámicos para todas las cards no actualizadas */
+[data-theme="light"] .bg-white\/5 {
+  background-color: rgba(248, 250, 252, 0.8) !important;
+  border: 1px solid rgba(15, 15, 35, 0.1) !important;
+}
+
+[data-theme="light"] .bg-white\/5:hover {
+  background-color: rgba(241, 245, 249, 0.9) !important;
+  border-color: rgba(15, 15, 35, 0.15) !important;
+}
+
+[data-theme="light"] .border-white\/10 {
+  border-color: rgba(15, 15, 35, 0.1) !important;
+}
+
+[data-theme="light"] .border-white\/20 {
+  border-color: rgba(15, 15, 35, 0.15) !important;
+}
+
+[data-theme="light"] .backdrop-blur-md {
+  backdrop-filter: blur(20px) !important;
+}
+
+/* Aplicar shadow-adaptive a todas las cards */
+[data-theme="light"] .bg-white\/5,
+[data-theme="light"] .bg-theme-overlay-light {
+  box-shadow: 0 4px 20px rgba(15, 15, 35, 0.08) !important;
+}
+
+[data-theme="light"] .bg-white\/5:hover,
+[data-theme="light"] .bg-theme-overlay-light:hover {
+  box-shadow: 0 8px 30px rgba(15, 15, 35, 0.15) !important;
+}
+
+/* Estilos específicos para Hero en modo LIGHT */
+[data-theme="light"] #home {
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.95) 0%, 
+    rgba(248, 250, 252, 0.90) 25%,
+    rgba(241, 245, 249, 0.85) 50%,
+    rgba(248, 250, 252, 0.90) 75%,
+    rgba(255, 255, 255, 0.95) 100%
+  );
+}
+
+/* Mejorar contraste de imagen de fondo en modo LIGHT */
+[data-theme="light"] .parallax-bg img {
+  filter: brightness(0.7) contrast(1.2) saturate(1.1);
+}
+
+/* Ajustar orbes para modo LIGHT */
+[data-theme="light"] .floating-orb {
+  opacity: 0.15 !important;
+  filter: blur(50px);
+}
+
+/* Gradiente específico para modo LIGHT */
+[data-theme="light"] .gradient-overlay {
+  background: linear-gradient(45deg, 
+    rgba(229, 146, 34, 0.12), 
+    rgba(116, 174, 225, 0.12), 
+    rgba(229, 146, 34, 0.08), 
+    rgba(116, 174, 225, 0.16)
+  );
+}
