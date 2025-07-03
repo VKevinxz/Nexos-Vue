@@ -14,6 +14,25 @@ const { isDark } = useTheme()
 // Parallax effect
 const parallaxOffset = ref(0)
 
+// Funciones de navegación
+const scrollToSection = (sectionId: string) => {
+  const element = document.getElementById(sectionId)
+  if (element) {
+    element.scrollIntoView({ 
+      behavior: 'smooth',
+      block: 'start'
+    })
+  }
+}
+
+const goToServices = () => {
+  scrollToSection('features')
+}
+
+const goToContact = () => {
+  scrollToSection('contact')
+}
+
 const updateParallax = () => {
   if (heroRef.value) {
     const rect = heroRef.value.getBoundingClientRect()
@@ -117,21 +136,27 @@ onMounted(() => {
       </h1>
 
       <!-- Subtitle -->
-      <p class="text-xl md:text-2xl text-theme-secondary mb-8 max-w-2xl mx-auto leading-relaxed scroll-animate fade-up stagger-1">
+      <p class="text-xl md:text-2xl font-black text-theme-primary mb-8 max-w-2xl mx-auto leading-relaxed scroll-animate fade-up stagger-1 hero-title-strong">
         Comprometidos con Transformar Realidades
       </p>
       
-      <p class="text-lg md:text-xl text-theme-muted mb-8 max-w-3xl mx-auto scroll-animate fade-up stagger-2">
+      <p class="text-lg md:text-xl font-bold text-theme-secondary mb-8 max-w-3xl mx-auto scroll-animate fade-up stagger-2 hero-subtitle-strong">
         Conectamos oportunidades, creamos valor y transformamos realidades empresariales 
         a través de consultoría integral y transformación digital.
       </p>
 
       <!-- CTA Buttons -->
       <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12 scroll-animate scale-in stagger-3">
-        <button class="bg-gradient-to-r from-nexos-orange to-nexos-blue hover:from-nexos-orange/90 hover:to-nexos-blue/90 text-white font-semibold py-4 px-8 rounded-full text-lg transition-all duration-300 transform hover:scale-105 shadow-adaptive">
+        <button 
+          @click="goToServices"
+          class="bg-gradient-to-r from-nexos-orange to-nexos-blue hover:from-nexos-orange/90 hover:to-nexos-blue/90 text-white font-semibold py-4 px-8 rounded-full text-lg transition-all duration-300 transform hover:scale-105 shadow-adaptive cursor-pointer"
+        >
           Conocer Más
         </button>
-        <button class="border-2 border-theme-medium hover:border-nexos-orange text-theme-primary hover:text-nexos-orange font-semibold py-4 px-8 rounded-full text-lg transition-all duration-300 transform hover:scale-105 backdrop-blur-adaptive hover:bg-theme-overlay-light">
+        <button 
+          @click="goToContact"
+          class="border-2 border-theme-medium hover:border-nexos-orange text-theme-primary hover:text-nexos-orange font-semibold py-4 px-8 rounded-full text-lg transition-all duration-300 transform hover:scale-105 backdrop-blur-adaptive hover:bg-theme-overlay-light cursor-pointer"
+        >
           Contactar
         </button>
       </div>
@@ -181,5 +206,44 @@ onMounted(() => {
 <style scoped>
 .animation-delay-2000 {
   animation-delay: 2s;
+}
+
+/* Estilos para texto más fuerte y destacado */
+.hero-title-strong {
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  letter-spacing: -0.02em;
+}
+
+.hero-subtitle-strong {
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  letter-spacing: -0.01em;
+}
+
+/* Estilos específicos para modo LIGHT */
+:global([data-theme="light"]) .hero-title-strong {
+  color: #0f172a !important;
+  text-shadow: 0 2px 8px rgba(15, 23, 42, 0.15);
+  font-weight: 900 !important;
+}
+
+:global([data-theme="light"]) .hero-subtitle-strong {
+  color: #1e293b !important;
+  text-shadow: 0 1px 4px rgba(30, 41, 59, 0.1);
+  font-weight: 700 !important;
+}
+
+/* Estilos específicos para modo DARK */
+:global([data-theme="dark"]) .hero-title-strong,
+:global(:root:not([data-theme="light"])) .hero-title-strong {
+  color: #ffffff !important;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  font-weight: 900 !important;
+}
+
+:global([data-theme="dark"]) .hero-subtitle-strong,
+:global(:root:not([data-theme="light"])) .hero-subtitle-strong {
+  color: #e2e8f0 !important;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  font-weight: 700 !important;
 }
 </style>

@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import { ref, reactive, onMounted } from 'vue'
+import { ref, reactive, onMounted, watch } from 'vue'
 import { useIntersectionObserver } from '../composables/useScrollAnimations'
 import { useTheme } from '../composables/useTheme'
 import { useEmailJS } from '../composables/useEmailJS'
+import { useSelectedService } from '../composables/useSelectedService'
 
 const { isDark } = useTheme()
 const { isSubmitting, submitMessage, sendEmail, initEmailJS } = useEmailJS()
+const { selectedService, clearSelectedService } = useSelectedService()
 
 // Estado reactivo para el formulario
 const formData = reactive({
@@ -15,6 +17,17 @@ const formData = reactive({
   message: '',
   service: ''
 })
+
+// Watch para el servicio seleccionado
+watch(selectedService, (newService) => {
+  if (newService) {
+    formData.service = newService
+    // Limpiar el servicio seleccionado después de aplicarlo
+    setTimeout(() => {
+      clearSelectedService()
+    }, 100)
+  }
+}, { immediate: true })
 
 const contactRef = ref<HTMLElement>()
 const { observe } = useIntersectionObserver()

@@ -1,10 +1,20 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { useIntersectionObserver } from '../composables/useScrollAnimations'
+import { useSelectedService } from '../composables/useSelectedService'
 
 // Estado para animaciones de scroll
 const featuresRef = ref<HTMLElement>()
 const { observe } = useIntersectionObserver()
+const { setSelectedService } = useSelectedService()
+
+// Mapeo de servicios a opciones del formulario
+const serviceMapping: Record<string, string> = {
+  'Nexos Estratégicos': 'Consultoría Estratégica',
+  'Nexos Financieros': 'Consultoría Financiera', 
+  'Nexos Legales': 'Consultoría Legal',
+  'Nexos Digital': 'Transformación Digital'
+}
 
 const features = [
   {
@@ -40,6 +50,23 @@ const features = [
     services: ['Software Personalizado', 'Marketing Digital', 'Automatización de Procesos', 'Consultoría Tecnológica']
   }
 ]
+
+const goToContactWithService = (featureTitle: string) => {
+  // Establecer el servicio seleccionado
+  const mappedService = serviceMapping[featureTitle]
+  if (mappedService) {
+    setSelectedService(mappedService)
+  }
+  
+  // Navegar a la sección de contacto
+  const element = document.getElementById('contact')
+  if (element) {
+    element.scrollIntoView({ 
+      behavior: 'smooth',
+      block: 'start'
+    })
+  }
+}
 
 onMounted(() => {
   if (featuresRef.value) {
@@ -125,7 +152,10 @@ onMounted(() => {
             
             <!-- CTA Button -->
             <div class="pt-4">
-              <button class="bg-gradient-to-r from-nexos-orange to-nexos-blue hover:from-nexos-orange/90 hover:to-nexos-blue/90 text-white font-semibold py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg text-sm">
+              <button 
+                @click="goToContactWithService(feature.title)"
+                class="bg-gradient-to-r from-nexos-orange to-nexos-blue hover:from-nexos-orange/90 hover:to-nexos-blue/90 text-white font-semibold py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg text-sm cursor-pointer"
+              >
                 Conocer más
               </button>
             </div>
