@@ -442,11 +442,6 @@
   background-color: rgba(229, 146, 34, 0.1);
 }
 
-/* Logo más visible en modo LIGHT */
-[data-theme="light"] img[alt="NEXOS"] {
-  filter: invert(1) brightness(0) saturate(100%) contrast(200%) !important;
-}
-
 /* Orbes menos intrusivos en modo LIGHT */
 [data-theme="light"] .floating-orb {
   opacity: 0.6;
