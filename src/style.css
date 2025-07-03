@@ -630,7 +630,8 @@
 
 /* Mejorar contraste de imagen de fondo en modo LIGHT */
 [data-theme="light"] .parallax-bg img {
-  filter: brightness(0.7) contrast(1.2) saturate(1.1);
+  filter: brightness(0.9) contrast(1.1) saturate(1.2);
+  opacity: 0.8;
 }
 
 /* Ajustar orbes para modo LIGHT */

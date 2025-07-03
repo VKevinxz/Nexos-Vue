@@ -53,20 +53,29 @@ onMounted(() => {
   <section ref="heroRef" id="home" class="relative min-h-screen flex items-center justify-center px-4 pt-16">
     <!-- Background effects mejorados con parallax -->
     <div class="absolute inset-0 overflow-hidden">
-      <!-- Imagen de fondo sutil con parallax -->
-      <div class="absolute inset-0 parallax-bg parallax-slow transition-opacity duration-300" :class="isDark() ? 'opacity-20' : 'opacity-40'">
+      <!-- Imagen de fondo - en modo claro sin efectos para depuración -->
+      <div v-if="isDark()" class="absolute inset-0 parallax-bg parallax-slow transition-opacity duration-300 opacity-20">
         <img 
-          src="/image/14.png" 
+          src="/image/14.webp" 
           alt="Background NEXOS" 
           class="w-full h-full object-cover object-center"
         />
-        <div class="absolute inset-0 transition-colors duration-300" :class="isDark() ? 'bg-theme-overlay-heavy' : 'bg-theme-overlay-light'"></div>
+        <div class="absolute inset-0 transition-colors duration-300 bg-theme-overlay-heavy"></div>
       </div>
       
-      <!-- Gradiente animado de fondo -->
-      <div class="absolute inset-0 bg-gradient-to-br from-theme-overlay-heavy via-transparent to-theme-overlay-heavy parallax-bg parallax-medium"></div>
+      <!-- Imagen CON PARALLAX en modo claro -->
+      <div v-else class="absolute inset-0 parallax-bg parallax-slow">
+        <img 
+          src="/image/14.webp" 
+          alt="Background NEXOS" 
+          class="w-full h-full object-cover object-center"
+        />
+      </div>
       
-      <!-- Orbes animados más dinámicos con parallax -->
+      <!-- Gradiente animado de fondo - solo en modo oscuro -->
+      <div v-if="isDark()" class="absolute inset-0 bg-gradient-to-br from-theme-overlay-heavy via-transparent to-theme-overlay-heavy parallax-bg parallax-medium"></div>
+      
+      <!-- Orbes animados - ahora también en modo claro -->
       <div class="floating-orb floating-orb-1 absolute -top-40 -right-40 w-80 h-80 bg-nexos-orange opacity-20 parallax-bg parallax-fast"></div>
       <div class="floating-orb floating-orb-2 absolute -bottom-40 -left-40 w-80 h-80 bg-nexos-blue opacity-20 parallax-bg parallax-slow"></div>
       <div class="floating-orb floating-orb-3 absolute top-20 left-20 w-60 h-60 bg-nexos-orange opacity-10 parallax-bg parallax-medium"></div>
@@ -101,10 +110,9 @@ onMounted(() => {
       <!-- Main heading -->
       <h1 class="text-5xl md:text-7xl font-bold text-theme-primary mb-6 leading-tight flex items-center justify-center scroll-animate fade-down">
         <img 
-          src="/image/Nexos_logo_white.png" 
+          :src="isDark() ? '/image/Logo_Darkmode.webp' : '/image/Logo_Lightmode.webp'" 
           alt="NEXOS" 
-          class="h-16 md:h-24 w-auto object-contain transition-all duration-300"
-          :style="isDark() ? '' : 'filter: invert(1) brightness(0) saturate(100%) contrast(200%);'"
+          class="h-32 md:h-48 w-auto object-contain transition-all duration-300"
         />
       </h1>
 

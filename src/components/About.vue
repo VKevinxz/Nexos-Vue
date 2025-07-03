@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { useIntersectionObserver } from '../composables/useScrollAnimations'
+import { useTheme } from '../composables/useTheme'
+
+const { isDark } = useTheme()
 
 const stats = [
   { number: '50+', label: 'Proyectos Completados' },
@@ -55,9 +58,9 @@ onMounted(() => {
         <h2 class="text-4xl md:text-5xl font-bold text-theme-primary mb-6 flex items-center justify-center gap-4">
           Acerca de
           <img 
-            src="/image/Nexos_logo_white.png" 
+            :src="isDark() ? '/image/Logo_Darkmode.webp' : '/image/Logo_Lightmode.webp'" 
             alt="NEXOS" 
-            class="h-10 md:h-14 w-auto object-contain"
+            class="h-24 md:h-32 w-auto object-contain"
           />
         </h2>
         <p class="text-xl text-theme-secondary max-w-3xl mx-auto leading-relaxed scroll-animate fade-up stagger-1">
@@ -172,15 +175,15 @@ onMounted(() => {
 
       <!-- Fundación NEXOS section -->
       <div class="text-center mb-16 scroll-animate fade-up stagger-2">
-        <h3 class="text-4xl md:text-5xl font-bold text-white mb-6 flex items-center justify-center gap-4">
+        <h3 class="text-4xl md:text-5xl font-bold text-theme-secondary mb-6 flex items-center justify-center gap-4">
           Fundación
           <img 
-            src="/image/Nexos_logo_white.png" 
+            :src="isDark() ? '/image/Logo_Darkmode.webp' : '/image/Logo_Lightmode.webp'" 
             alt="NEXOS" 
-            class="h-12 md:h-16 w-auto object-contain"
+            class="h-32 md:h-40 w-auto object-contain"
           />
         </h3>
-        <p class="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed mb-12">
+        <p class="text-xl text-theme-secondary max-w-3xl mx-auto leading-relaxed mb-12">
           Comprometidos con Transformar Realidades
         </p>
         
@@ -200,10 +203,10 @@ onMounted(() => {
               </div>
             </div>
             
-            <h4 class="text-2xl font-bold text-white mb-4">
+            <h4 class="text-2xl font-bold text-nexos-orange mb-4">
               "Pintando un Mundo de Esperanzas"
             </h4>
-            <p class="text-gray-300 mb-6 leading-relaxed">
+            <p class="text-theme-secondary mb-6 leading-relaxed">
               Llevamos color, alegría y apoyo a comunidades rurales, fortaleciendo espacios educativos, recreativos y comunitarios.
             </p>
             
@@ -212,15 +215,15 @@ onMounted(() => {
               <h5 class="text-nexos-orange font-semibold mb-3">Actividades:</h5>
               <div class="flex items-start">
                 <div class="w-2 h-2 bg-nexos-orange rounded-full mr-3 mt-2 flex-shrink-0"></div>
-                <span class="text-gray-300 text-sm">Intervenciones artísticas en escuelas</span>
+                <span class="text-theme-secondary text-sm">Intervenciones artísticas en escuelas</span>
               </div>
               <div class="flex items-start">
                 <div class="w-2 h-2 bg-nexos-orange rounded-full mr-3 mt-2 flex-shrink-0"></div>
-                <span class="text-gray-300 text-sm">Donación de útiles y materiales</span>
+                <span class="text-theme-secondary text-sm">Donación de útiles y materiales</span>
               </div>
               <div class="flex items-start">
                 <div class="w-2 h-2 bg-nexos-orange rounded-full mr-3 mt-2 flex-shrink-0"></div>
-                <span class="text-gray-300 text-sm">Jornadas recreativas y educativas</span>
+                <span class="text-theme-secondary text-sm">Jornadas recreativas y educativas</span>
               </div>
             </div>
           </div>
@@ -239,10 +242,10 @@ onMounted(() => {
               </div>
             </div>
             
-            <h4 class="text-2xl font-bold text-white mb-4">
+            <h4 class="text-2xl font-bold text-nexos-blue mb-4">
               "Échame una Pata"
             </h4>
-            <p class="text-gray-300 mb-6 leading-relaxed">
+            <p class="text-theme-secondary mb-6 leading-relaxed">
               Creamos conciencia sobre el cuidado y protección de los animales callejeros, brindando ayuda y una cultura de respeto.
             </p>
             
@@ -251,15 +254,15 @@ onMounted(() => {
               <h5 class="text-nexos-blue font-semibold mb-3">Actividades:</h5>
               <div class="flex items-start">
                 <div class="w-2 h-2 bg-nexos-blue rounded-full mr-3 mt-2 flex-shrink-0"></div>
-                <span class="text-gray-300 text-sm">Instalación de comederos y bebederos</span>
+                <span class="text-theme-secondary text-sm">Instalación de comederos y bebederos</span>
               </div>
               <div class="flex items-start">
                 <div class="w-2 h-2 bg-nexos-blue rounded-full mr-3 mt-2 flex-shrink-0"></div>
-                <span class="text-gray-300 text-sm">Jornadas de adopción y esterilización</span>
+                <span class="text-theme-secondary text-sm">Jornadas de adopción y esterilización</span>
               </div>
               <div class="flex items-start">
                 <div class="w-2 h-2 bg-nexos-blue rounded-full mr-3 mt-2 flex-shrink-0"></div>
-                <span class="text-gray-300 text-sm">Campañas educativas y voluntariado</span>
+                <span class="text-theme-secondary text-sm">Campañas educativas y voluntariado</span>
               </div>
             </div>
           </div>
@@ -278,10 +281,10 @@ onMounted(() => {
               </div>
             </div>
             
-            <h4 class="text-2xl font-bold text-white mb-4">
+            <h4 class="text-2xl font-bold text-nexos-orange mb-4">
               "Salud y Ergo"
             </h4>
-            <p class="text-gray-300 mb-6 leading-relaxed">
+            <p class="text-theme-secondary mb-6 leading-relaxed">
               En Fundación NEXOS fomentamos la salud laboral y buenos hábitos, como consumir productos sin azúcar ni grasas.
             </p>
             
@@ -290,15 +293,15 @@ onMounted(() => {
               <h5 class="text-nexos-orange font-semibold mb-3">Actividades:</h5>
               <div class="flex items-start">
                 <div class="w-2 h-2 bg-nexos-orange rounded-full mr-3 mt-2 flex-shrink-0"></div>
-                <span class="text-gray-300 text-sm">Estaciones de trabajo ergonómicas y capacitación</span>
+                <span class="text-theme-secondary text-sm">Estaciones de trabajo ergonómicas y capacitación</span>
               </div>
               <div class="flex items-start">
                 <div class="w-2 h-2 bg-nexos-orange rounded-full mr-3 mt-2 flex-shrink-0"></div>
-                <span class="text-gray-300 text-sm">Talleres sobre nutrición y hábitos saludables</span>
+                <span class="text-theme-secondary text-sm">Talleres sobre nutrición y hábitos saludables</span>
               </div>
               <div class="flex items-start">
                 <div class="w-2 h-2 bg-nexos-orange rounded-full mr-3 mt-2 flex-shrink-0"></div>
-                <span class="text-gray-300 text-sm">Pausas activas y opciones alimenticias saludables</span>
+                <span class="text-theme-secondary text-sm">Pausas activas y opciones alimenticias saludables</span>
               </div>
             </div>
           </div>
@@ -323,7 +326,7 @@ onMounted(() => {
       <!-- Reconocimientos section -->
       <div class="text-center mb-16">
         <h3 class="text-3xl font-bold text-white mb-6">Reconocimientos</h3>
-        <p class="text-gray-300 max-w-2xl mx-auto mb-12">
+        <p class="text-theme-secondary max-w-2xl mx-auto mb-12">
           Nuestro compromiso con la excelencia nos ha permitido obtener importantes reconocimientos
         </p>
         

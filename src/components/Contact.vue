@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import { ref, reactive, onMounted } from 'vue'
 import { useIntersectionObserver } from '../composables/useScrollAnimations'
+import { useTheme } from '../composables/useTheme'
+import { useEmailJS } from '../composables/useEmailJS'
+
+const { isDark } = useTheme()
+const { isSubmitting, submitMessage, sendEmail, initEmailJS } = useEmailJS()
 
 // Estado reactivo para el formulario
 const formData = reactive({
@@ -11,10 +16,14 @@ const formData = reactive({
   service: ''
 })
 
-const isSubmitting = ref(false)
-const submitMessage = ref('')
 const contactRef = ref<HTMLElement>()
 const { observe } = useIntersectionObserver()
+
+// Configuración de emails destino - ✅ CONFIGURADO
+const DESTINATION_EMAILS = [
+  'cm.nexosd@gmail.com', // Email principal donde recibirás los mensajes
+  // 'backup@nexos.dev' // Email secundario opcional
+]
 
 const services = [
   'Desarrollo Web',
@@ -53,26 +62,26 @@ const handleSubmit = async () => {
     return
   }
 
-  isSubmitting.value = true
-  
-  // Simular envío del formulario
-  setTimeout(() => {
-    isSubmitting.value = false
-    submitMessage.value = '¡Gracias por contactarnos! Te responderemos pronto.'
+  try {
+    // Enviar email usando EmailJS
+    const result = await sendEmail(formData, DESTINATION_EMAILS[0])
     
-    // Limpiar formulario
-    Object.keys(formData).forEach(key => {
-      formData[key as keyof typeof formData] = ''
-    })
-
-    // Limpiar mensaje después de 5 segundos
-    setTimeout(() => {
-      submitMessage.value = ''
-    }, 5000)
-  }, 2000)
+    if (result.success) {
+      // Limpiar formulario solo si el envío fue exitoso
+      Object.keys(formData).forEach(key => {
+        formData[key as keyof typeof formData] = ''
+      })
+    }
+  } catch (error) {
+    console.error('Error en el envío:', error)
+    submitMessage.value = 'Error al enviar el mensaje. Por favor intenta nuevamente.'
+  }
 }
 
 onMounted(() => {
+  // Inicializar EmailJS
+  initEmailJS()
+  
   if (contactRef.value) {
     observe(contactRef.value)
     
@@ -165,14 +174,25 @@ onMounted(() => {
               </label>
               <select
                 v-model="formData.service"
-                class="w-full px-4 py-3 bg-theme-overlay-medium border border-theme-light rounded-lg text-theme-primary focus:outline-none focus:ring-2 focus:ring-nexos-orange focus:border-transparent transition-all duration-300"
+                :class="[
+                  'w-full px-4 py-3 border rounded-lg transition-all duration-300',
+                  'focus:outline-none focus:ring-2 focus:ring-nexos-orange focus:border-transparent',
+                  isDark() 
+                    ? 'bg-gray-800 border-gray-600 text-white' 
+                    : 'bg-white border-gray-300 text-gray-900'
+                ]"
               >
-                <option value="" class="bg-gray-900">Selecciona un servicio</option>
+                <option 
+                  value="" 
+                  :class="isDark() ? 'bg-gray-800 text-gray-300' : 'bg-white text-gray-600'"
+                >
+                  Selecciona un servicio
+                </option>
                 <option 
                   v-for="service in services" 
                   :key="service" 
                   :value="service"
-                  class="bg-gray-900"
+                  :class="isDark() ? 'bg-gray-800 text-white' : 'bg-white text-gray-900'"
                 >
                   {{ service }}
                 </option>
@@ -197,16 +217,32 @@ onMounted(() => {
             <button
               type="submit"
               :disabled="isSubmitting"
-              class="w-full bg-gradient-to-r from-nexos-orange to-nexos-blue hover:from-nexos-orange/90 hover:to-nexos-blue/90 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-105"
+              :class="[
+                'w-full font-semibold py-4 px-8 rounded-lg transition-all duration-300 transform relative overflow-hidden',
+                'bg-gradient-to-r from-nexos-orange to-nexos-blue text-white',
+                'hover:from-nexos-orange/90 hover:to-nexos-blue/90 hover:scale-105',
+                'focus:outline-none focus:ring-4 focus:ring-nexos-orange/30',
+                'disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none',
+                isDark() 
+                  ? 'shadow-2xl shadow-nexos-orange/20 hover:shadow-nexos-orange/40' 
+                  : 'shadow-lg shadow-nexos-orange/25 hover:shadow-xl hover:shadow-nexos-orange/30',
+                'before:absolute before:inset-0 before:bg-gradient-to-r before:from-white/10 before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-300'
+              ]"
             >
-              <span v-if="!isSubmitting">Enviar Mensaje</span>
-              <span v-else class="flex items-center justify-center">
+              <span v-if="!isSubmitting" class="relative z-10">Enviar Mensaje</span>
+              <span v-else class="flex items-center justify-center relative z-10">
                 <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                   <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                   <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                 </svg>
                 Enviando...
               </span>
+              
+              <!-- Efecto de brillo adicional para dark mode -->
+              <div 
+                v-if="isDark()" 
+                class="absolute inset-0 rounded-lg bg-gradient-to-r from-nexos-orange/20 to-nexos-blue/20 opacity-0 hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+              ></div>
             </button>
 
             <!-- Submit message -->
@@ -233,7 +269,7 @@ onMounted(() => {
                   {{ info.icon }}
                 </div>
                 <div>
-                  <h4 class="text-lg font-semibold text-white mb-1">{{ info.title }}</h4>
+                  <h4 class="text-lg font-semibold text-theme-secondary mb-1">{{ info.title }}</h4>
                   <a 
                     :href="info.link" 
                     class="text-nexos-orange hover:text-nexos-blue transition-colors"
@@ -259,8 +295,8 @@ onMounted(() => {
                 <p class="text-theme-secondary text-sm">Sí, ofrecemos soporte continuo y mantenimiento.</p>
               </div>
               <div>
-                <h4 class="text-lg font-semibold text-white mb-2">¿Trabajan con empresas internacionales?</h4>
-                <p class="text-gray-300 text-sm">Absolutamente, trabajamos con clientes de todo el mundo.</p>
+                <h4 class="text-lg font-semibold text-theme-primary mb-2">¿Trabajan con empresas internacionales?</h4>
+                <p class="text-theme-secondary text-sm">Absolutamente, trabajamos con clientes de todo el mundo.</p>
               </div>
             </div>
           </div>

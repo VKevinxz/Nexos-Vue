@@ -49,10 +49,9 @@ onMounted(() => {
           <!-- Logo -->
           <div class="flex-shrink-0 flex items-center">
             <img 
-              src="/image/Nexos_logo_white.png" 
+              :src="isDark() ? '/image/Logo_Darkmode.webp' : '/image/Logo_Lightmode.webp'" 
               alt="NEXOS" 
-              class="h-10 w-auto object-contain transition-all duration-300" 
-              :style="isDark() ? '' : 'filter: invert(1) brightness(0) saturate(100%) contrast(200%);'"
+              class="h-16 w-auto object-contain transition-all duration-300" 
             />
           </div>
 
@@ -179,10 +178,9 @@ onMounted(() => {
         <div class="flex flex-col md:flex-row justify-between items-center">
           <div class="mb-4 md:mb-0 flex flex-col items-center md:items-start">
             <img 
-              src="/image/Nexos_logo_white.png" 
+              :src="isDark() ? '/image/Logo_Darkmode.webp' : '/image/Logo_Lightmode.webp'" 
               alt="NEXOS" 
-              class="h-8 w-auto object-contain mb-2 transition-all duration-300" 
-              :style="isDark() ? '' : 'filter: invert(1) brightness(0) saturate(100%) contrast(200%);'"
+              class="h-12 w-auto object-contain mb-2 transition-all duration-300" 
             />
             <p class="text-theme-muted text-center md:text-left">Conectando ideas, creando futuro</p>
           </div>
