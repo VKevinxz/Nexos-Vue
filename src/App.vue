@@ -43,13 +43,13 @@ onMounted(() => {
     </div>
     
     <!-- Navigation -->
-    <nav class="fixed w-full z-50 bg-theme-overlay-medium backdrop-blur-adaptive border-b border-theme-light">
+    <nav class="fixed w-full z-50 bg-white border-b border-gray-200 shadow-sm">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-16">
           <!-- Logo -->
           <div class="flex-shrink-0 flex items-center">
             <img 
-              :src="isDark() ? '/image/Logo_Darkmode.webp' : '/image/Logo_Lightmode.webp'" 
+              src="/image/Logo_Lightmode.webp" 
               alt="NEXOS" 
               class="h-16 w-auto object-contain transition-all duration-300" 
             />
@@ -58,16 +58,16 @@ onMounted(() => {
           <!-- Desktop Navigation -->
           <div class="hidden md:flex items-center space-x-4">
             <div class="flex items-baseline space-x-4">
-              <a href="#home" class="text-theme-primary hover:text-nexos-orange px-3 py-2 rounded-md text-sm font-medium transition-colors">
+              <a href="#home" class="text-gray-700 hover:text-nexos-orange px-3 py-2 rounded-md text-sm font-medium transition-colors">
                 Inicio
               </a>
-              <a href="#features" class="text-theme-primary hover:text-nexos-orange px-3 py-2 rounded-md text-sm font-medium transition-colors">
+              <a href="#features" class="text-gray-700 hover:text-nexos-orange px-3 py-2 rounded-md text-sm font-medium transition-colors">
                 Servicios
               </a>
-              <a href="#about" class="text-theme-primary hover:text-nexos-orange px-3 py-2 rounded-md text-sm font-medium transition-colors">
+              <a href="#about" class="text-gray-700 hover:text-nexos-orange px-3 py-2 rounded-md text-sm font-medium transition-colors">
                 Nosotros
               </a>
-              <a href="#contact" class="text-theme-primary hover:text-nexos-orange px-3 py-2 rounded-md text-sm font-medium transition-colors">
+              <a href="#contact" class="text-gray-700 hover:text-nexos-orange px-3 py-2 rounded-md text-sm font-medium transition-colors">
                 Contacto
               </a>
             </div>
@@ -75,13 +75,13 @@ onMounted(() => {
             <!-- Theme Toggle Button -->
             <button
               @click="toggleTheme"
-              class="ml-4 p-2 rounded-lg bg-theme-overlay-light hover:bg-theme-overlay-medium border border-theme-light hover:border-theme-medium transition-all duration-300 group"
+              class="ml-4 p-2 rounded-lg bg-gray-100 hover:bg-gray-200 border border-gray-300 hover:border-gray-400 transition-all duration-300 group"
               :title="isDark() ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'"
             >
               <!-- Sol (Light Mode Icon) -->
               <svg 
                 v-if="isDark()" 
-                class="w-5 h-5 text-theme-secondary group-hover:text-nexos-orange transition-colors" 
+                class="w-5 h-5 text-gray-600 group-hover:text-nexos-orange transition-colors" 
                 fill="none" 
                 stroke="currentColor" 
                 viewBox="0 0 24 24"
@@ -92,7 +92,7 @@ onMounted(() => {
               <!-- Luna (Dark Mode Icon) -->
               <svg 
                 v-else 
-                class="w-5 h-5 text-theme-secondary group-hover:text-nexos-blue transition-colors" 
+                class="w-5 h-5 text-gray-600 group-hover:text-nexos-blue transition-colors" 
                 fill="none" 
                 stroke="currentColor" 
                 viewBox="0 0 24 24"
@@ -106,7 +106,7 @@ onMounted(() => {
           <div class="md:hidden">
             <button
               @click="toggleMobileMenu"
-              class="bg-theme-overlay-medium hover:bg-theme-overlay-heavy inline-flex items-center justify-center p-2 rounded-md text-theme-secondary hover:text-theme-primary border border-theme-light focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-nexos-orange"
+              class="bg-gray-100 hover:bg-gray-200 inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-gray-800 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-nexos-orange"
             >
               <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                 <path v-if="!isMobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -119,29 +119,29 @@ onMounted(() => {
 
       <!-- Mobile Navigation -->
       <div v-show="isMobileMenuOpen" class="md:hidden">
-        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-theme-overlay-heavy backdrop-blur-adaptive border-t border-theme-light">
-          <a href="#home" class="text-theme-primary hover:text-nexos-orange block px-3 py-2 rounded-md text-base font-medium transition-colors">
+        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t border-gray-200">
+          <a href="#home" class="text-gray-700 hover:text-nexos-orange block px-3 py-2 rounded-md text-base font-medium transition-colors">
             Inicio
           </a>
-          <a href="#features" class="text-theme-primary hover:text-nexos-orange block px-3 py-2 rounded-md text-base font-medium transition-colors">
+          <a href="#features" class="text-gray-700 hover:text-nexos-orange block px-3 py-2 rounded-md text-base font-medium transition-colors">
             Servicios
           </a>
-          <a href="#about" class="text-theme-primary hover:text-nexos-orange block px-3 py-2 rounded-md text-base font-medium transition-colors">
+          <a href="#about" class="text-gray-700 hover:text-nexos-orange block px-3 py-2 rounded-md text-base font-medium transition-colors">
             Nosotros
           </a>
-          <a href="#contact" class="text-theme-primary hover:text-nexos-orange block px-3 py-2 rounded-md text-base font-medium transition-colors">
+          <a href="#contact" class="text-gray-700 hover:text-nexos-orange block px-3 py-2 rounded-md text-base font-medium transition-colors">
             Contacto
           </a>
           
           <!-- Mobile Theme Toggle -->
-          <div class="pt-2 border-t border-theme-light">
+          <div class="pt-2 border-t border-gray-200">
             <button
               @click="toggleTheme"
-              class="w-full flex items-center justify-center px-3 py-2 rounded-md text-theme-secondary hover:text-nexos-orange bg-theme-overlay-light hover:bg-theme-overlay-medium border border-theme-light transition-all duration-300"
+              class="w-full flex items-center justify-center px-3 py-2 rounded-md text-gray-600 hover:text-nexos-orange bg-gray-100 hover:bg-gray-200 border border-gray-300 transition-all duration-300"
             >
               <svg 
                 v-if="isDark()" 
-                class="w-5 h-5 mr-2" 
+                class="w-5 h-5 mr-2 text-gray-600" 
                 fill="none" 
                 stroke="currentColor" 
                 viewBox="0 0 24 24"
@@ -150,7 +150,7 @@ onMounted(() => {
               </svg>
               <svg 
                 v-else 
-                class="w-5 h-5 mr-2" 
+                class="w-5 h-5 mr-2 text-gray-600" 
                 fill="none" 
                 stroke="currentColor" 
                 viewBox="0 0 24 24"

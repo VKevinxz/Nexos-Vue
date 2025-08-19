@@ -69,136 +69,84 @@ onMounted(() => {
 </script>
 
 <template>
-  <section ref="heroRef" id="home" class="relative min-h-screen flex items-center justify-center px-4 pt-16">
-    <!-- Background effects mejorados con parallax -->
+  <section ref="heroRef" id="home" class="relative min-h-screen flex items-center px-4 pt-16">
+    <!-- Background Image -->
     <div class="absolute inset-0 overflow-hidden">
-      <!-- Imagen de fondo - en modo claro sin efectos para depuración -->
-      <div v-if="isDark()" class="absolute inset-0 parallax-bg parallax-slow transition-opacity duration-300 opacity-20">
-        <img 
-          src="/image/14.webp" 
-          alt="Background NEXOS" 
-          class="w-full h-full object-cover object-center"
-        />
-        <div class="absolute inset-0 transition-colors duration-300 bg-theme-overlay-heavy"></div>
-      </div>
+      <img 
+        src="/image/14.webp" 
+        alt="Background NEXOS" 
+        class="w-full h-full object-cover object-center parallax-bg parallax-slow"
+      />
+      <!-- Overlay con color consistente a los demás componentes -->
+      <div class="absolute inset-0" style="background: rgba(29, 31, 48, 0.85);"></div>
       
-      <!-- Imagen CON PARALLAX en modo claro -->
-      <div v-else class="absolute inset-0 parallax-bg parallax-slow">
-        <img 
-          src="/image/14.webp" 
-          alt="Background NEXOS" 
-          class="w-full h-full object-cover object-center"
-        />
-      </div>
-      
-      <!-- Gradiente animado de fondo - solo en modo oscuro -->
-      <div v-if="isDark()" class="absolute inset-0 bg-gradient-to-br from-theme-overlay-heavy via-transparent to-theme-overlay-heavy parallax-bg parallax-medium"></div>
-      
-      <!-- Orbes animados - ahora también en modo claro -->
-      <div class="floating-orb floating-orb-1 absolute -top-40 -right-40 w-80 h-80 bg-nexos-orange opacity-20 parallax-bg parallax-fast"></div>
-      <div class="floating-orb floating-orb-2 absolute -bottom-40 -left-40 w-80 h-80 bg-nexos-blue opacity-20 parallax-bg parallax-slow"></div>
-      <div class="floating-orb floating-orb-3 absolute top-20 left-20 w-60 h-60 bg-nexos-orange opacity-10 parallax-bg parallax-medium"></div>
-      <div class="floating-orb floating-orb-1 absolute bottom-20 right-20 w-40 h-40 bg-nexos-blue opacity-15 parallax-bg parallax-fast" style="animation-delay: 3s;"></div>
-      
-      <!-- Líneas de conexión animadas -->
-      <div class="absolute inset-0">
-        <svg class="w-full h-full opacity-10" viewBox="0 0 100 100" preserveAspectRatio="none">
-          <defs>
-            <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" style="stop-color:var(--nexos-orange);stop-opacity:1" />
-              <stop offset="100%" style="stop-color:var(--nexos-blue);stop-opacity:1" />
-            </linearGradient>
-          </defs>
-          <path d="M0,20 Q50,60 100,30" stroke="url(#lineGradient)" stroke-width="0.5" fill="none" class="animate-pulse">
-            <animate attributeName="d" 
-                     values="M0,20 Q50,60 100,30;M0,30 Q50,10 100,40;M0,20 Q50,60 100,30" 
-                     dur="8s" 
-                     repeatCount="indefinite"/>
-          </path>
-          <path d="M0,70 Q50,30 100,80" stroke="url(#lineGradient)" stroke-width="0.3" fill="none" class="animate-pulse" style="animation-delay: 2s;">
-            <animate attributeName="d" 
-                     values="M0,70 Q50,30 100,80;M0,80 Q50,90 100,60;M0,70 Q50,30 100,80" 
-                     dur="10s" 
-                     repeatCount="indefinite"/>
-          </path>
-        </svg>
+      <!-- Orbes flotantes sutiles -->
+      <div class="floating-orb floating-orb-1 absolute top-1/4 right-10 w-32 h-32 bg-nexos-orange opacity-10 parallax-bg parallax-fast"></div>
+      <div class="floating-orb floating-orb-2 absolute bottom-1/4 left-10 w-24 h-24 bg-nexos-blue opacity-15 parallax-bg parallax-medium"></div>
+    </div>
+
+    <!-- Content Container -->
+    <div class="relative z-10 max-w-7xl mx-auto w-full">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        
+        <!-- Left Column - Text Content -->
+        <div class="text-left space-y-8 scroll-animate fade-right">
+          
+          <!-- Main Title -->
+          <div class="space-y-4">
+            <h1 class="text-4xl lg:text-6xl font-black text-white leading-tight hero-main-title">
+              NEXOS<br>
+              <span class="text-nexos-orange">ESTRATEGIAS &</span><br>
+              <span class="text-nexos-orange">NEGOCIOS</span>
+            </h1>
+          </div>
+
+          <!-- Description -->
+          <div class="space-y-6 scroll-animate fade-right stagger-1">
+            <p class="text-lg lg:text-xl text-gray-200 font-medium leading-relaxed max-w-2xl">
+              Somos un equipo multidisciplinario especializado en consultoría 
+              estratégica y gestión empresarial.
+            </p>
+            <p class="text-lg lg:text-xl text-gray-200 font-medium leading-relaxed max-w-2xl">
+              Ofrecemos soluciones integrales en áreas fiscales, contables, legales, 
+              laborales y comerciales, con un enfoque innovador orientado a 
+              mejorar el desempeño, la rentabilidad y el cumplimiento de tu 
+              organización.
+            </p>
+          </div>
+
+          <!-- CTA Buttons with circular design -->
+          <div class="flex flex-col sm:flex-row gap-6 items-start mt-12 scroll-animate scale-in stagger-2">
+            <!-- Botón Servicios (Óvalo izquierdo) -->
+            <button 
+              @click="goToServices"
+              class="nexos-oval-button nexos-oval-services bg-nexos-blue/20 border-2 border-nexos-blue hover:bg-nexos-blue hover:border-nexos-blue text-white font-bold px-8 py-4 transition-all duration-300 transform hover:scale-110 cursor-pointer shadow-lg hover:shadow-nexos-blue/30"
+            >
+              <span class="text-lg">SERVICIOS</span>
+            </button>
+            
+            <!-- Botón Contacto (Óvalo derecho) -->
+            <button 
+              @click="goToContact"
+              class="nexos-oval-button nexos-oval-contact bg-nexos-orange/20 border-2 border-nexos-orange hover:bg-nexos-orange hover:border-nexos-orange text-white font-bold px-8 py-4 transition-all duration-300 transform hover:scale-110 cursor-pointer shadow-lg hover:shadow-nexos-orange/30"
+            >
+              <span class="text-lg">CONTACTO</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Right Column - Additional Content or Space -->
+        <div class="hidden lg:block">
+          <!-- Espacio para balance visual -->
+        </div>
       </div>
     </div>
 
-    <div class="relative z-10 text-center max-w-4xl mx-auto">
-      <!-- Main heading -->
-      <h1 class="text-5xl md:text-7xl font-bold text-theme-primary mb-6 leading-tight flex items-center justify-center scroll-animate fade-down">
-        <img 
-          :src="isDark() ? '/image/Logo_Darkmode.webp' : '/image/Logo_Lightmode.webp'" 
-          alt="NEXOS" 
-          class="h-32 md:h-48 w-auto object-contain transition-all duration-300"
-        />
-      </h1>
-
-      <!-- Subtitle -->
-      <p class="text-xl md:text-2xl font-black text-theme-primary mb-8 max-w-2xl mx-auto leading-relaxed scroll-animate fade-up stagger-1 hero-title-strong">
-        Comprometidos con Transformar Realidades
-      </p>
-      
-      <p class="text-lg md:text-xl font-bold text-theme-secondary mb-8 max-w-3xl mx-auto scroll-animate fade-up stagger-2 hero-subtitle-strong">
-        Conectamos oportunidades, creamos valor y transformamos realidades empresariales 
-        a través de consultoría integral y transformación digital.
-      </p>
-
-      <!-- CTA Buttons -->
-      <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12 scroll-animate scale-in stagger-3">
-        <button 
-          @click="goToServices"
-          class="bg-gradient-to-r from-nexos-orange to-nexos-blue hover:from-nexos-orange/90 hover:to-nexos-blue/90 text-white font-semibold py-4 px-8 rounded-full text-lg transition-all duration-300 transform hover:scale-105 shadow-adaptive cursor-pointer"
-        >
-          Conocer Más
-        </button>
-        <button 
-          @click="goToContact"
-          class="border-2 border-theme-medium hover:border-nexos-orange text-theme-primary hover:text-nexos-orange font-semibold py-4 px-8 rounded-full text-lg transition-all duration-300 transform hover:scale-105 backdrop-blur-adaptive hover:bg-theme-overlay-light cursor-pointer"
-        >
-          Contactar
-        </button>
-      </div>
-
-      <!-- Features highlight -->
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mt-16">
-        <div class="text-center scroll-animate fade-up stagger-4">
-          <div class="bg-theme-overlay-medium backdrop-blur-adaptive rounded-xl p-6 transition-all duration-300 hover:bg-theme-overlay-heavy hover:transform hover:scale-105 shadow-adaptive">
-            <div class="text-4xl mb-4">🎯</div>
-            <h3 class="text-xl font-semibold text-theme-primary mb-2">Integridad</h3>
-            <p class="text-theme-secondary">Compromiso ético en cada decisión</p>
-          </div>
-        </div>
-        <div class="text-center scroll-animate fade-up stagger-5">
-          <div class="bg-theme-overlay-medium backdrop-blur-adaptive rounded-xl p-6 transition-all duration-300 hover:bg-theme-overlay-heavy hover:transform hover:scale-105 shadow-adaptive">
-            <div class="text-4xl mb-4">🚀</div>
-            <h3 class="text-xl font-semibold text-theme-primary mb-2">Innovación</h3>
-            <p class="text-theme-secondary">Soluciones creativas y vanguardistas</p>
-          </div>
-        </div>
-        <div class="text-center scroll-animate fade-up stagger-6">
-          <div class="bg-theme-overlay-medium backdrop-blur-adaptive rounded-xl p-6 transition-all duration-300 hover:bg-theme-overlay-heavy hover:transform hover:scale-105 shadow-adaptive">
-            <div class="text-4xl mb-4">⭐</div>
-            <h3 class="text-xl font-semibold text-theme-primary mb-2">Excelencia</h3>
-            <p class="text-theme-secondary">Calidad superior en cada proyecto</p>
-          </div>
-        </div>
-        <div class="text-center scroll-animate fade-up stagger-6">
-          <div class="bg-theme-overlay-medium backdrop-blur-adaptive rounded-xl p-6 transition-all duration-300 hover:bg-theme-overlay-heavy hover:transform hover:scale-105 shadow-adaptive">
-            <div class="text-4xl mb-4">🤝</div>
-            <h3 class="text-xl font-semibold text-theme-primary mb-2">Compromiso</h3>
-            <p class="text-theme-secondary">Dedicación total con nuestros clientes</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Scroll indicator -->
-      <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <svg class="w-6 h-6 text-theme-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-        </svg>
-      </div>
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+      <svg class="w-6 h-6 text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+      </svg>
     </div>
   </section>
 </template>
@@ -208,42 +156,131 @@ onMounted(() => {
   animation-delay: 2s;
 }
 
-/* Estilos para texto más fuerte y destacado */
-.hero-title-strong {
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+/* Título principal con estilo empresarial */
+.hero-main-title {
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
   letter-spacing: -0.02em;
+  line-height: 0.9;
 }
 
-.hero-subtitle-strong {
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
-  letter-spacing: -0.01em;
+/* Botones ovales estilo "dibujado a mano" */
+.nexos-oval-button {
+  position: relative;
+  border-radius: 50px;
+  min-width: 160px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Arial', sans-serif;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
 }
 
-/* Estilos específicos para modo LIGHT */
-:global([data-theme="light"]) .hero-title-strong {
-  color: #0f172a !important;
-  text-shadow: 0 2px 8px rgba(15, 23, 42, 0.15);
-  font-weight: 900 !important;
+/* Efecto de "dibujado" con pseudo-elementos */
+.nexos-oval-button::before {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  right: -3px;
+  bottom: -3px;
+  border-radius: 50px;
+  border: 2px solid transparent;
+  background: linear-gradient(45deg, currentColor, transparent, currentColor);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: exclude;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  opacity: 0.3;
+  transition: opacity 0.3s ease;
 }
 
-:global([data-theme="light"]) .hero-subtitle-strong {
-  color: #1e293b !important;
-  text-shadow: 0 1px 4px rgba(30, 41, 59, 0.1);
-  font-weight: 700 !important;
+.nexos-oval-button:hover::before {
+  opacity: 0.6;
 }
 
-/* Estilos específicos para modo DARK */
-:global([data-theme="dark"]) .hero-title-strong,
-:global(:root:not([data-theme="light"])) .hero-title-strong {
-  color: #ffffff !important;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
-  font-weight: 900 !important;
+/* Servicios Button - Estilo azul */
+.nexos-oval-services {
+  background: rgba(116, 174, 225, 0.15);
+  border-color: #74AEE1;
+  color: #74AEE1;
 }
 
-:global([data-theme="dark"]) .hero-subtitle-strong,
-:global(:root:not([data-theme="light"])) .hero-subtitle-strong {
-  color: #e2e8f0 !important;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
-  font-weight: 700 !important;
+.nexos-oval-services:hover {
+  background: #74AEE1;
+  color: white;
+  box-shadow: 0 6px 25px rgba(116, 174, 225, 0.4);
+}
+
+/* Contacto Button - Estilo naranja */
+.nexos-oval-contact {
+  background: rgba(229, 146, 34, 0.15);
+  border-color: #E59222;
+  color: #E59222;
+}
+
+.nexos-oval-contact:hover {
+  background: #E59222;
+  color: white;
+  box-shadow: 0 6px 25px rgba(229, 146, 34, 0.4);
+}
+
+/* Animación de entrada para los botones */
+.nexos-oval-button {
+  animation: slideInScale 0.8s ease-out forwards;
+  transform: translateY(20px) scale(0.9);
+  opacity: 0;
+}
+
+.nexos-oval-services {
+  animation-delay: 0.3s;
+}
+
+.nexos-oval-contact {
+  animation-delay: 0.5s;
+}
+
+@keyframes slideInScale {
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .nexos-oval-button {
+    min-width: 140px;
+    height: 60px;
+  }
+  
+  .nexos-oval-button span {
+    font-size: 0.9rem;
+  }
+  
+  .hero-main-title {
+    font-size: 2.5rem;
+    line-height: 1;
+  }
+}
+
+/* Parallax backgrounds */
+.parallax-bg {
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+.parallax-slow {
+  transform: translateY(var(--parallax-slow, 0));
+}
+
+.parallax-medium {
+  transform: translateY(var(--parallax-medium, 0));
+}
+
+.parallax-fast {
+  transform: translateY(var(--parallax-fast, 0));
 }
 </style>
