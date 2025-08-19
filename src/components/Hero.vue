@@ -67,7 +67,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <section ref="heroRef" id="home" class="relative min-h-screen flex items-center px-4 pt-16">
+  <section ref="heroRef" id="home" class="relative min-h-screen flex items-center px-4 sm:px-6 lg:px-8 pt-16">
     <!-- Background Image -->
     <div class="absolute inset-0 overflow-hidden">
       <img 
@@ -79,20 +79,20 @@ onMounted(() => {
       <div class="absolute inset-0" style="background: rgba(29, 31, 48, 0.85);"></div>
       
       <!-- Orbes flotantes sutiles -->
-      <div class="floating-orb floating-orb-1 absolute top-1/4 right-10 w-32 h-32 bg-nexos-orange opacity-10 parallax-bg parallax-fast"></div>
-      <div class="floating-orb floating-orb-2 absolute bottom-1/4 left-10 w-24 h-24 bg-nexos-blue opacity-15 parallax-bg parallax-medium"></div>
+      <div class="floating-orb floating-orb-1 absolute top-1/4 right-4 sm:right-10 w-24 sm:w-32 h-24 sm:h-32 bg-nexos-orange opacity-10 parallax-bg parallax-fast"></div>
+      <div class="floating-orb floating-orb-2 absolute bottom-1/4 left-4 sm:left-10 w-20 sm:w-24 h-20 sm:h-24 bg-nexos-blue opacity-15 parallax-bg parallax-medium"></div>
     </div>
 
     <!-- Content Container -->
     <div class="relative z-10 max-w-7xl mx-auto w-full">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
         
         <!-- Left Column - Text Content -->
-        <div class="text-left space-y-8 scroll-animate fade-right">
+        <div class="text-left space-y-6 md:space-y-8 scroll-animate fade-right">
           
           <!-- Main Title -->
           <div class="space-y-4">
-            <h1 class="text-4xl lg:text-6xl font-black text-white leading-tight hero-main-title">
+            <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-white leading-tight hero-main-title">
               NEXOS<br>
               <span class="text-nexos-orange">ESTRATEGIAS &</span><br>
               <span class="text-nexos-orange">NEGOCIOS</span>
@@ -100,12 +100,12 @@ onMounted(() => {
           </div>
 
           <!-- Description -->
-          <div class="space-y-6 scroll-animate fade-right stagger-1">
-            <p class="text-lg lg:text-xl text-gray-200 font-medium leading-relaxed max-w-2xl">
+          <div class="space-y-4 md:space-y-6 scroll-animate fade-right stagger-1">
+            <p class="text-base sm:text-lg md:text-xl lg:text-xl text-gray-200 font-medium leading-relaxed max-w-2xl">
               Somos un equipo multidisciplinario especializado en consultoría 
               estratégica y gestión empresarial.
             </p>
-            <p class="text-lg lg:text-xl text-gray-200 font-medium leading-relaxed max-w-2xl">
+            <p class="text-base sm:text-lg md:text-xl lg:text-xl text-gray-200 font-medium leading-relaxed max-w-2xl">
               Ofrecemos soluciones integrales en áreas fiscales, contables, legales, 
               laborales y comerciales, con un enfoque innovador orientado a 
               mejorar el desempeño, la rentabilidad y el cumplimiento de tu 
@@ -114,7 +114,7 @@ onMounted(() => {
           </div>
 
           <!-- CTA Buttons with circular design -->
-          <div class="flex flex-col sm:flex-row gap-6 items-start mt-12 scroll-animate scale-in stagger-2">
+          <div class="flex flex-col sm:flex-row gap-4 sm:gap-6 items-center sm:items-start mt-8 md:mt-12 scroll-animate scale-in stagger-2">
             <!-- Botón Servicios (Óvalo izquierdo) -->
             <button 
               @click="goToServices"
@@ -250,7 +250,7 @@ onMounted(() => {
 /* Responsive adjustments */
 @media (max-width: 640px) {
   .nexos-oval-button {
-    min-width: 140px;
+    min-width: 280px;
     height: 60px;
   }
   
@@ -259,8 +259,32 @@ onMounted(() => {
   }
   
   .hero-main-title {
-    font-size: 2.5rem;
-    line-height: 1;
+    font-size: 2rem;
+    line-height: 0.95;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 768px) {
+  .nexos-oval-button {
+    min-width: 180px;
+    height: 70px;
+  }
+  
+  .hero-main-title {
+    font-size: 3rem;
+    line-height: 0.92;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .nexos-oval-button {
+    min-width: 200px;
+    height: 75px;
+  }
+  
+  .hero-main-title {
+    font-size: 3.5rem;
+    line-height: 0.9;
   }
 }
 
