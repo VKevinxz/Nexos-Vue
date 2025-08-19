@@ -1,15 +1,13 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
 import { useScrollAnimations, useIntersectionObserver } from '../composables/useScrollAnimations'
-import { useTheme } from '../composables/useTheme'
 
 // Estado reactivo para animaciones
 const heroRef = ref<HTMLElement>()
 
-// Composables para animaciones y tema
+// Composables para animaciones
 const { windowHeight } = useScrollAnimations()
 const { observe } = useIntersectionObserver()
-const { isDark } = useTheme()
 
 // Parallax effect
 const parallaxOffset = ref(0)
